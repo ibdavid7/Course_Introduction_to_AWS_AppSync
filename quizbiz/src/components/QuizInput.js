@@ -50,7 +50,7 @@ mutation (
   createAnswer(input: {
     text: $text,
     correct: $correct,
-    answerQuestionId: $questionId
+    questionAnswersId: $questionId
   })
   {
    id

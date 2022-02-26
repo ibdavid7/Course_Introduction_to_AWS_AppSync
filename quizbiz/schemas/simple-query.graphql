@@ -23,4 +23,13 @@ input CreateQuestionInput {
 
 type Mutation {
   createQuestion(input: CreateQuestionInput!): Question
+  updateQuestion(input: UpdateQuestionInput!): Question
+  deleteQuestion(input: ID!): Question
+}
+
+input UpdateQuestionInput {
+  id: ID!
+  text: String
+  explanation: String
+  answers: [AWSJSON]
 }

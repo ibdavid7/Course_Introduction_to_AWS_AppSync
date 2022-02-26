@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import _ from 'lodash';
-import { Icon, Form, } from 'semantic-ui-react';
+import {Icon, Form,} from 'semantic-ui-react';
 
 class QuestionForm extends Component {
     constructor(props) {
@@ -21,23 +21,23 @@ class QuestionForm extends Component {
 
     submit = () => {
         this.props.submit(this.state)
-        this.setState({ loading: true })
+        this.setState({loading: true})
     }
 
-    updateCheck = (e, { value }) => {
-        console.log({ event: e, value: value })
-        this.setState({ correctAnswer: value })
+    updateCheck = (e, {value}) => {
+        console.log({event: e, value: value})
+        this.setState({correctAnswer: value})
     }
 
-    updateText = (e, { name, value }) => {
-        console.log({ event: e, name: name, value: value })
-        this.setState({ [name]: value })
+    updateText = (e, {name, value}) => {
+        console.log({event: e, name: name, value: value})
+        this.setState({[name]: value})
     }
 
     render() {
         return (
             <Form onSubmit={this.submit}>
-                <Form.TextArea name={'questionText'} onChange={this.updateText} ></Form.TextArea>
+                <Form.TextArea name={'questionText'} onChange={this.updateText}></Form.TextArea>
                 <h3>Answers</h3>
                 {_.map([1, 2, 3, 4], i => (
                     <Form.Group inline key={'id-' + i}>
@@ -48,11 +48,13 @@ class QuestionForm extends Component {
                             onClick={this.updateCheck}
                             value={'answerText' + i}
                         />
-                        <Form.Input label={'Choice ' + i} onChange={this.updateText} name={'answerText' + i}></Form.Input>
+                        <Form.Input label={'Choice ' + i} onChange={this.updateText}
+                                    name={'answerText' + i}></Form.Input>
                     </Form.Group>
                 ))}
-                <Form.TextArea label='Why is this correct?' name={'questionExplanation'} onChange={this.updateText} ></Form.TextArea>
-                <Form.Group widths='equal' >
+                <Form.TextArea label='Why is this correct?' name={'questionExplanation'}
+                               onChange={this.updateText}></Form.TextArea>
+                <Form.Group widths='equal'>
                     <Form.Dropdown
                         search
                         selection
@@ -60,12 +62,14 @@ class QuestionForm extends Component {
                         name="quizId"
                         placeholder="Choose One"
                         onChange={this.updateText}
-                        options={_.map(_.sortBy(this.props.quizzes, 'title'), (v) => { return { text: v.title, value: v.id } })}
+                        options={_.map(_.sortBy(this.props.quizzes, 'title'), (v) => {
+                            return {text: v.title, value: v.id}
+                        })}
                     />
                     <Form.Input
                         label='Or create a new quiz'
                         name='quizTitle'
-                        onChange={this.updateText} >
+                        onChange={this.updateText}>
                     </Form.Input>
                 </Form.Group>
                 <Form.Button
@@ -74,9 +78,9 @@ class QuestionForm extends Component {
                     labelPosition='right'
                     disabled={this.state.loading || this.state.correctAnswer === null || this.state.questionText === null}
                 >
-                    <Icon name='right arrow' />
+                    <Icon name='right arrow'/>
                     Submit
-                            </Form.Button>
+                </Form.Button>
             </Form>
         )
     }
