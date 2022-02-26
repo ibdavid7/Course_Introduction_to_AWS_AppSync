@@ -1,21 +1,48 @@
-type Question @model @versioned {
+#type Question @model @versioned {
+#  id: ID!
+#  text: String!
+#  tags: [String]
+#  links: [String]
+#  explanation: String
+#  answers: [Answer] @connection(name: "QuestionChoices")
+#}
+#
+#type Answer @model @versioned {
+#  id: ID!
+#  text: String
+#  correct: Boolean
+#  question: Question @connection(name: "QuestionChoices")
+#}
+#
+#type Quiz @model(queries: {list: "listQuizzes", get: "getQuiz"}) @versioned {
+#  id: ID!
+#  title: String!
+#  questions: [Question] @connection
+#}
+
+
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+type Question @model {
   id: ID!
   text: String!
   tags: [String]
   links: [String]
   explanation: String
-  answers: [Answer] @connection(name: "QuestionChoices")
+  answers: [Answer] @hasMany
 }
 
-type Answer @model @versioned {
+type Answer @model {
   id: ID!
   text: String
   correct: Boolean
-  question: Question @connection(name: "QuestionChoices")
+  question: Question @belongsTo
 }
 
-type Quiz @model(queries: {list: "listQuizzes", get: "getQuiz"}) @versioned {
+type Quiz @model(queries: {list: "listQuizzes", get: "getQuiz"}) {
   id: ID!
   title: String!
-  questions: [Question] @connection
+  questions: [Question] @hasMany
 }
